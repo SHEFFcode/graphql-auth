@@ -1,11 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ApolloClient from 'apollo-client';
+import { ApolloProvider } from 'react-apollo';
+import { Router, hashHistory, Route, IndexRouter } from 'react-router';
+
+import App from './components/App';
+
+const client = new ApolloClient({
+  dataIdFromObject(o) {
+    return o.id;
+  }
+});
 
 const Root = () => {
   return (
-    <div>
-      Auth Starter
-    </div>
+    <ApolloProvider client={client}>
+      <Router history={hashHistory}>
+        <Route path='/' component={App}/>
+        
+      </Router>
+    </ApolloProvider>
   );
 };
 
